@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-// import { ErrorPage } from "@/pages/error-page/error-page";
+// import { ErrorPage } from "@/pages/error-page/error-page"; to be created
 import {
   createBrowserRouter,
   RouterProvider as RRProvider,
@@ -43,7 +43,7 @@ const router = createBrowserRouter([
       //     path: "profile",
       //     async lazy() {
       //       const { ProfilePage } = await import(
-      //         "@/pages/profile-page/profile-page.tsx"
+      //         "@/pages/profile-page.tsx"
       //       );
       //       return {
       //         Component: ProfilePage,
