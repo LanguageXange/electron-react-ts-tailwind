@@ -7,6 +7,20 @@ export const Demo = () => {
   const [product, setProduct] = useState("");
   const [data, setData] = useState(null);
 
+  const [todos, setTodos] = useState([]);
+  console.log(todos, "what is todos");
+
+  useEffect(() => {
+    ipcRenderer.send(channels.GET_TODO_DATA); // Send request for todos
+    ipcRenderer.on(channels.GET_TODO_DATA_RES, (event, data) => {
+      setTodos(data.slice(0, 20));
+    });
+
+    return () => {
+      ipcRenderer.removeAllListeners(channels.GET_TODO_DATA_RES);
+    };
+  }, []);
+
   const handleQuit = () => {
     ipcRenderer.invoke(channels.QUIT);
   };
@@ -54,6 +68,14 @@ export const Demo = () => {
           </>
         )}
       </div>
+
+      {todos.length > 0 && (
+        <ul>
+          {todos.map((todo) => (
+            <li key={todo.id}>{todo.title}</li>
+          ))}
+        </ul>
+      )}
 
       <button
         onClick={handleQuit}

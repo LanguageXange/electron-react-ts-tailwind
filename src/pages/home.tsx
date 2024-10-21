@@ -1,4 +1,6 @@
+import FaceRecog from "../components/face-recog";
 import { useEffect, useState } from "react";
+import { Demo } from "./demo";
 const { ipcRenderer } = window.require("electron"); // https://github.com/electron/electron/issues/7300
 
 export const Home = () => {
@@ -28,6 +30,10 @@ export const Home = () => {
       <div className="p-4 max-w-xl">
         {imageSrc && <img src={imageSrc} alt="Selected Image" />}
       </div>
+      {/* 
+      <FaceRecog /> */}
+
+      <Demo />
     </div>
   );
 };
