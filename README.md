@@ -1,5 +1,14 @@
-Electron Forge
+## Stacks
+
+React, Webpack + TS ( Electron Forge Template), React Router Dom, TailwindCSS, Mantine UI, react query, zod
+react hook form, react i18
+React Flow, Konva, openCV
+
+## Tool - Electron Forge
+
 https://www.electronforge.io/guides/framework-integration/react-with-typescript
+
+## CLI
 
 `yarn create electron-app woohoo --template=webpack-typescript`
 
@@ -42,3 +51,35 @@ Add this in `webpack.rules.ts`
     ],
   },
 ```
+
+## Mantine UI
+
+https://mantine.dev/getting-started/
+`yarn add @mantine/core @mantine/hooks @mantine/notifications @mantine/dropzone @mantine/modals`
+`yarn add --dev postcss-preset-mantine postcss-simple-vars`
+
+react hook form
+`yarn add react-hook-form` for resolver need to add resolver library! TO DO
+
+## i18n
+
+https://github.com/shawnbanasick/electron-react-i18n-boilerplate
+
+`yarn add react-i18next i18next i18next-browser-languagedetector i18next-electron-fs-backend i18next-fs-backend i18next-resources-to-backend`
+
+`i18next-electron-fs-backend i18next-fs-backend` might not need these ?
+
+set up locales inside `src`
+
+in `i18n.ts`
+
+```
+  .use(
+    resourcesToBackend(
+      (language, namespace) =>
+        import(`../locales/${language}/${namespace}.json`)
+    )
+  )
+```
+
+remember to import i18n.ts in `index.tsx`

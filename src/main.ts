@@ -75,6 +75,26 @@ app.on("activate", () => {
   }
 });
 
+// Locales
+// https://michael-hsu.medium.com/%E7%94%A8-react-%E5%92%8C-electron-%E9%96%8B%E7%99%BC%E5%A4%9A%E5%9C%8B%E8%AA%9E%E7%B3%BB%E7%9A%84%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F-i18n-eea392eeb7d8
+
+// i18n.on('loaded', (loaded) => {
+//   i18n.changeLanguage('en-US', (err, t) => {
+//     if (err) {
+//       console.error(err);
+//     }
+//   });
+//   i18n.off('loaded');
+// });
+
+// i18n.on('languageChanged', (lng) => {
+//   setupMenu(i18n);
+// });
+
+// i18n.on('failedLoading', (lng, ns, msg) => {
+//   console.error(msg);
+// });
+
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
 

@@ -3,7 +3,7 @@ export function AuthOutlet() {
   const hasToken = localStorage.getItem("token");
 
   if (!hasToken) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/" replace />;
   }
   return hasToken ? (
     <Outlet />

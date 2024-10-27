@@ -2,11 +2,39 @@ import { useEffect, useState } from "react";
 const { ipcRenderer } = window.require("electron"); // https://github.com/electron/electron/issues/7300
 import { channels } from "../shared/constants";
 import { useNavigate } from "react-router-dom";
+import { Button, Stack } from "@mantine/core";
+import { useTranslation } from "react-i18next";
+import { showNotification } from "@mantine/notifications";
+import { siteConfig } from "../configs/site";
+
+type Language = "en" | "zh-TW";
+export function LanguageSelector({ collapsed }: { collapsed: boolean }) {
+  const { i18n } = useTranslation(["components"]);
+  const activeLanguage = i18n.language as Language;
+  return (
+    <Stack gap="xs">
+      {Object.entries(siteConfig.language).map(([lng, lngInfo]) => (
+        <Button
+          variant="transparent"
+          color="dark.1"
+          leftSection={lngInfo.icon}
+          onClick={() => i18n.changeLanguage(lng)}
+          key={lng}
+          className={`${activeLanguage === lng ? "text-white" : ""}`}
+        >
+          {collapsed ? lngInfo.shortName : lngInfo.name}
+        </Button>
+      ))}
+    </Stack>
+  );
+}
 
 export const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
+  const { t } = useTranslation(["common"]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,7 +44,7 @@ export const LoginPage = () => {
 
   useEffect(() => {
     const hasToken = localStorage.getItem("token");
-    if (hasToken) navigate("/main_window");
+    if (hasToken) navigate("/home");
   }, []);
 
   useEffect(() => {
@@ -25,7 +53,7 @@ export const LoginPage = () => {
         // Redirect to about page or display a success message
         console.log("Login successful");
         localStorage.setItem("token", "secret");
-        navigate("/main_window");
+        navigate("/home");
       } else {
         // Handle login failure
         alert("login failed");
@@ -40,6 +68,7 @@ export const LoginPage = () => {
 
   return (
     <div className="flex justify-center items-center h-screen bg-slate-100">
+      <LanguageSelector collapsed={false} />
       <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
         <h1 className="text-3xl font-bold text-center mb-4">Login</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -65,12 +94,26 @@ export const LoginPage = () => {
               placeholder="Password"
             />
           </div>
-          <button
+          {/* <button
             type="submit"
             className="w-full px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600"
           >
             Login
-          </button>
+          </button> */}
+
+          <Button
+            variant="primary"
+            type="submit"
+            onClick={() => {
+              showNotification({
+                color: "success",
+                message: "hello",
+                title: "testing title",
+              });
+            }}
+          >
+            {t("common:nav.login")}
+          </Button>
         </form>
       </div>
     </div>
